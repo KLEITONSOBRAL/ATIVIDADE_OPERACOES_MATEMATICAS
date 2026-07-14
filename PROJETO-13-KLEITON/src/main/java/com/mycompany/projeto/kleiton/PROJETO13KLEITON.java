@@ -1,3 +1,22 @@
+/*
+Desenvolva um programa em Java que permita ao usuário realizar operações matemáticas entre elementos de um vetor.
+O programa deverá:
+1. Solicitar o tamanho do vetor;
+2. Ler e armazenar valores inteiros em cada posição do vetor;
+3. Exibir o vetor preenchido, mostrando os índices e seus respectivos valores;
+4. Solicitar uma operação matemática entre as opções:
+   * Adição;
+   * Subtração;
+   * Multiplicação;
+   * Divisão;
+5. Solicitar dois índices válidos do vetor;
+6. Realizar a operação escolhida utilizando os valores armazenados nos dois índices informados;
+7. Exibir o resultado da operação;
+8. Armazenar o resultado em um segundo vetor, na posição correspondente ao primeiro índice escolhido;
+9. Exibir o vetor de resultados, informando quais posições possuem resultados e quais ainda não foram utilizadas.
+O programa deverá tratar entradas inválidas, índices fora dos limites do vetor, operações inexistentes e tentativas de divisão por zero.
+*/
+
 package com.mycompany.projeto.kleiton;
 
 import java.util.InputMismatchException;
@@ -6,8 +25,8 @@ import java.util.Scanner;
 public class PROJETO13KLEITON {
 
     public static void main(String[] args) {
+        
         Scanner scanner = new Scanner(System.in);
-
         
         System.out.print("Digite o tamanho do vetor: ");
         int tamanhoVetor = getValidInteger(scanner);
@@ -17,36 +36,30 @@ public class PROJETO13KLEITON {
             System.out.print("Digite o valor para o índice " + i + ": ");
             vetor[i] = getValidInteger(scanner);
         }
-
-       
+        
         System.out.println("Vetor atual:");
         for (int i = 0; i < vetor.length; i++) {
             System.out.println("Índice " + i + ": " + vetor[i]);
         }
-
         
         System.out.print("Escolha uma operação (adição, subtração, multiplicação, divisão): ");
         String operacao = scanner.next().toLowerCase().trim();
-
         
         System.out.print("Escolha o primeiro índice (0 a " + (tamanhoVetor - 1) + "): ");
         int index1 = getValidIndex(scanner, tamanhoVetor);
 
         System.out.print("Escolha o segundo índice (0 a " + (tamanhoVetor - 1) + "): ");
         int index2 = getValidIndex(scanner, tamanhoVetor);
-
         
         int[] resultados = new int[tamanhoVetor];
         for (int i = 0; i < resultados.length; i++) {
-            resultados[i] = Integer.MIN_VALUE;  
+            resultados[i] = Integer.MIN_VALUE;
         }
 
-        
         try {
             int resultado = realizarOperacao(vetor, index1, index2, operacao);
             System.out.println("Resultado da operação entre os índices " + index1 + " e " + index2 + ": " + resultado);
             resultados[index1] = resultado;
-
             
             System.out.println("Vetor de resultados atualizado:");
             for (int i = 0; i < resultados.length; i++) {
@@ -64,12 +77,11 @@ public class PROJETO13KLEITON {
         } catch (Exception e) {
             System.out.println("Erro: " + e.getMessage());
         }
-
         scanner.close();
     }
-
     
     private static int getValidInteger(Scanner scanner) {
+        
         while (true) {
             try {
                 return scanner.nextInt();
@@ -79,7 +91,6 @@ public class PROJETO13KLEITON {
             }
         }
     }
-
     
     private static int getValidIndex(Scanner scanner, int tamanhoVetor) {
         while (true) {
@@ -92,14 +103,13 @@ public class PROJETO13KLEITON {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Entrada inválida. Por favor, insira um número inteiro.");
-                scanner.next();  
+                scanner.next();
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("Índice fora dos limites. Insira um número entre 0 e " + (tamanhoVetor - 1) + ".");
             }
         }
     }
 
-    
     private static int realizarOperacao(int[] vetor, int index1, int index2, String operacao) throws ArithmeticException {
         switch (operacao) {
             case "adição":
